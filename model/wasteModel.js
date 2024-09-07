@@ -1,19 +1,15 @@
 const mongoose = require('mongoose')
 
 const wasteSchema = new mongoose.Schema({
-    // user:{
-    //     type:String,
-    //     required:true
-    // },
     name:{
         type:String,
         required:true,
-        unique:true
+       
     },
     PhoneNumber:{
         type:String,
         required:true,
-        unique:true
+        //unique:true
     },
     Email:{
         type:String,
@@ -29,9 +25,10 @@ const wasteSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    user:[
+    userId:[
         {type:mongoose.Schema.Types.ObjectId,
             ref:"user",
+             required:true
         }
     ],
     
