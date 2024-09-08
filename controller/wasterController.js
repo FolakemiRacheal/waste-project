@@ -27,7 +27,8 @@ exports.createWaste = async (req, res) => {
       return res.status(400).json({
          message: 'Missing required fields' });
     }
-    
+    createWaste.Email = user.Email; 
+
     if (createWaste.wasteKg < 10) {
       return res.status(400).json({
          message: 'Waste must be at least 10 kg' });

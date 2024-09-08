@@ -317,7 +317,7 @@ exports.updateUser = async(req,res)=>{
 
 exports.getAll = async(req,res)=>{
     try {
-        const all = await userModel.find()
+        const all = await userModel.find().populate("wasteDetail")
         res.status(200).json({
             message:`kindly find below all ${all.length}`,
             data:all})

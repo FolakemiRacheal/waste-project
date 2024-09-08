@@ -14,7 +14,7 @@ const wasteSchema = new mongoose.Schema({
     Email:{
         type:String,
         required:true,
-        unique:true
+        //unique:true
     },
     wasteKg:{
         type:String,
