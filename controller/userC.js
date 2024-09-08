@@ -16,12 +16,12 @@ exports.signUp = async(req,res)=>{
             })
         }
         
-        // const existingUser = await userModel.findOne({Email}) 
-        // if (existingUser) {
-        //     return res.status(400).json({
-        //         message: `User with email already exist`
-        //     })
-        // } 
+         const existingUser = await userModel.findOne({Email}) 
+        if (existingUser) {
+         return res.status(400).json({
+                message: `User with email already exist`
+            })
+         } 
             const saltedPassword = await bcryptjs.genSalt(12)
             const hashedPassword = await bcryptjs.hash(Password,saltedPassword) 
             
@@ -38,7 +38,9 @@ exports.signUp = async(req,res)=>{
                 },process.env.JWT_SECRET,
                 {expiresIn:"30 minutes"}
             )
-            const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/verify/${Token}`
+           // const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/verify/${Token}`
+               const verifyLink= `http://localhost:2601/api/v1/user/verify/${Token}`
+
             await user.save()
             await sendMail({
                 subject:`Verification email`,
@@ -175,7 +177,8 @@ exports.resendVerificationEmail = async (req, res) => {
        }, process.env.JWT_SECRET, 
        { expiresIn: '20mins' 
        });
-        const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/verify/${Token}`
+       // const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/verify/${Token}`
+        const verifyLink=`http://localhost:2601/api/v1/user/verify/${Token}`
 
         let mailOptions = {
             email: user.Email,
@@ -212,7 +215,8 @@ exports.ForgetPassword = async(req,res) =>{
         { expiresIn: '20mins' 
         });
 
-        const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/reset-password/${ResetToken}`
+        //const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/reset-password/${ResetToken}`
+        const verifyLink = `http://localhost:2601/api/v1/user/reset-password/${ResetToken}`
         const mailOptions = {
             email: user.Email,
             subject: 'Reset password',
