@@ -21,6 +21,7 @@ exports.createWaste = async (req, res) => {
     }
     
     const createWaste = new wasteModel(req.body);
+    console.log(user)
     
     if (!createWaste || createWaste.wasteKg === undefined) {
       return res.status(400).json({
@@ -31,17 +32,18 @@ exports.createWaste = async (req, res) => {
       return res.status(400).json({
          message: 'Waste must be at least 10 kg' });
     }
-
+    createWaste.userId.push(id)
     await createWaste.save();
-    
-    // Update user details
-    //user.userDetail.push(createWaste);
-    
+
+    user.wasteDetail = createWaste;
+    await user.save();
+
     await sendMail({
       subject: 'Waste Recycling Confirmation Email',
-      email: user.Email,
+      email: createWaste.Email,
       html: pickUpWasteTemplate(user.fullName)
     });
+    
     
     res.status(201).json({
       message: 'Waste entry created successfully',

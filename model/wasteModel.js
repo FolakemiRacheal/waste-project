@@ -32,7 +32,7 @@ const wasteSchema = new mongoose.Schema({
         }
     ],
     
-    blackList:[]
+    //blackList:[]
 },{timestamps:true})
 
 const wasteModel = mongoose.model ("waste",wasteSchema)

@@ -20,12 +20,6 @@ router.get('/getall',getAll)
 router.post('/log-out',logOut)
 router.delete('/deleteUser/:userId',deleteUser)
 
-
-
-
-
-
-
 router.post("/createWaste/:id", createWaste)
-
+//router.post("/waste/:id", createWaste)
 module.exports = router 
