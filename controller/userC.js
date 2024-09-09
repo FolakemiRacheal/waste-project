@@ -147,9 +147,9 @@ exports.verifyEmail = async (req, res) => {
         })
 
     } catch (err) {
-        if (err instanceof jwt.JsonWebTokenError) {
-            return res.json({message: 'Link expired.'})
-        }
+        // if (err instanceof jwt.JsonWebTokenError) {
+        //     return res.json({message: 'Link expired.'})
+        // }
         res.status(500).json(err.message)
     }
 }
