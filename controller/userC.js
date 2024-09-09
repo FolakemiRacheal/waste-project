@@ -39,7 +39,7 @@ exports.signUp = async(req,res)=>{
                 {expiresIn:"30 minutes"}
             )
            // const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/verify/${Token}`
-               const verifyLink= `http://localhost:2601/api/v1/user/verify/${Token}`
+               const verifyLink= `https://waste-project.onrender.com/api/v1/user/verify/${Token}`
 
             await user.save()
             await sendMail({
