@@ -77,7 +77,7 @@ exports.login = async(req,res)=>{
                 message:`Incorrect password`
             })
         }
-        req.session.user = checkMail.Email
+        req.user = checkMail.Email
 
         if(!checkMail.isVerified){
             return res.status(400).json({
