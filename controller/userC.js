@@ -120,9 +120,9 @@ exports.makeAdmin = async(req, res)=> {
 exports.verifyEmail = async (req, res) => {
     try {
         // Extract the token from the request params
-        const {Token} = req.params;
+        const {token} = req.params;
         // Extract the email from the verified token
-        const {Email} = jwt.verify(Token,process.env.JWT_SECRET);
+        const {Email} = jwt.verify(token,process.env.JWT_SECRET);
         // Find the user with the email
         const user = await userModel.findOne({Email});
         // Check if the user is still in the database
