@@ -56,7 +56,7 @@ const signUpTemplate=(verifyLink,fullName)=>{
 <body>
     <div class="container">
         <div class="header">
-            <h1>Welcome to THE CURVE AFRICA!</h1>
+            <h1>Welcome to RECYCLEPAY!</h1>
         </div>
         <div class="content">
             <p>Hello ${fullName},</p>
@@ -66,7 +66,7 @@ const signUpTemplate=(verifyLink,fullName)=>{
                 <a href="${verifyLink}" class="button">Verify My Account</a>
             </p>
             <p>If you did not create an account, please ignore this email.</p>
-            <p>Best regards,<br> THECURVE  AFRICA Team</p>
+            <p>Best regards,<br> THE RECYCLEPAY Team</p>
         </div>
         <div class="footer">
             <p>&copy; ${new Date().getFullYear()} . All rights reserved.</p>
@@ -146,7 +146,7 @@ const forgotPasswordTemplate = (verifyLink, fullName) => {
                 <a href="${verifyLink}" class="button">Verify My Account</a>
             </p>
             <p>If you did not create an account, please ignore this email.</p>
-            <p>Best regards,<br> THE CURVE  AFRICA Team</p>
+            <p>Best regards,<br> THE RECYCLEPAY Team</p>
         </div>
         <div class="footer">
             <p>&copy; ${new Date().getFullYear()} . All rights reserved.</p>
@@ -225,7 +225,7 @@ const verifyTemplate = (verifyLink,fullName) => {
                 <a href="${verifyLink}" class="button">Verify My Account</a>
             </p>
             <p>If you did not create an account, please ignore this email.</p>
-            <p>Best regards,<br> THE CURVE  AFRICA Team</p>
+            <p>Best regards,<br> THE RECYCLE PAY Team</p>
         </div>
         <div class="footer">
             <p>&copy; ${new Date().getFullYear()} . All rights reserved.</p>
@@ -296,7 +296,7 @@ const pickUpWasteTemplate = (fullName) => {
 <body>
     <div class="container">
         <div class="header">
-            <h1>Verification Email</h1>
+            <h1>RecyclePay Confirmation Info</h1>
         </div>
         <div class="content">
             <p>Hello ${fullName},</p>
