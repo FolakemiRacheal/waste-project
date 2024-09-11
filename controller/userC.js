@@ -16,7 +16,7 @@ exports.signUp = async(req,res)=>{
             })
         }
         
-         const existingUser = await userModel.findOne({Email}) 
+         const existingUser = await userModel.findOne({Email:Email.toLowerCase()}) 
         if (existingUser) {
          return res.status(400).json({
                 message: `User with email already exist`
@@ -26,11 +26,11 @@ exports.signUp = async(req,res)=>{
             const hashedPassword = await bcryptjs.hash(Password,saltedPassword) 
             
             const user = new userModel({
-                fullName,
-                Email,
-                Location,
+                fullName:fullName.trim(),
+                Email:Email.toLowerCase().trim(),
+                Location:Location.trim(),
                 Password:hashedPassword,
-                PhoneNumber
+                PhoneNumber:PhoneNumber.trim()
             })
             const Token = jwt.sign({ 
                 id:user._id,
@@ -178,12 +178,12 @@ exports.resendVerificationEmail = async (req, res) => {
        { expiresIn: '20mins' 
        });
        // const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/verify/${Token}`
-        const verifyLink=`http://localhost:2601/api/v1/user/verify/${Token}`
+        const verifyLink=`http://localhost:2601/api/v1/user/resend-verification/${Token}`
 
         let mailOptions = {
             email: user.Email,
             subject: 'Verification email',
-            html: verifyTemplate(verifyLink, user.fullName),
+            html: this.resendVerificationEmailTemplate(verifyLink, user.fullName),
         }
         // Send the the email
         await sendMail(mailOptions);
