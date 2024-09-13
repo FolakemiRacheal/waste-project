@@ -323,14 +323,14 @@ const pickUpWasteTemplate = (fullName) => {
 </html>
     `
 }
-const resendVerificationEmailTemplate=(verifyLink,fullName)=>{
+const resendVerificationEmailTemplate=(reverifyLink,fullName)=>{
     return `
     
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to [Your App Name]</title>
+    <title>Welcome to [RECYCLEPAY]</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -388,7 +388,7 @@ const resendVerificationEmailTemplate=(verifyLink,fullName)=>{
             <p>Thank you for signing up on our platform. We are excited to have you on board.</p>
             <p>Please click the button below to verify your account:</p>
             <p>
-                <a href="${verifyLink}" class="button">Verify My Account</a>
+                <a href="${reverifyLink}" class="button">Verify My Account</a>
             </p>
             <p>If you did not create an account, please ignore this email.</p>
             <p>Best regards,<br> THE RECYCLEPAY Team</p>

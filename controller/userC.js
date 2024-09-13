@@ -2,7 +2,7 @@ const userModel = require('../model/userM')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {sendMail} = require('../helpers/sendMail')
-const {signUpTemplate,verifyTemplate,forgotPasswordTemplate} = require('../helpers/HTML')
+const {signUpTemplate,verifyTemplate,forgotPasswordTemplate, resendVerificationEmailTemplate} = require('../helpers/HTML')
 const fs = require('fs')
 require ("dotenv").config() 
 
@@ -36,7 +36,7 @@ exports.signUp = async(req,res)=>{
                 id:user._id,
                 Email:user.Email
                 },process.env.JWT_SECRET,
-                {expiresIn:"30 minutes"}
+                {expiresIn:"2 minutes"}
             )
            // const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/verify/${Token}`
                const verifyLink= `https://waste-project.onrender.com/api/v1/user/verify/${Token}`
@@ -154,48 +154,49 @@ exports.verifyEmail = async (req, res) => {
     }
 }
 
-exports.resendVerificationEmail = async (req, res) => {
-    try {
-        const {Email} = req.body;
-        // Find the user with the email
-        const user = await userModel.findOne({Email});
-        // Check if the user is still in the database
-        if (!user) {
-            return res.status(404).json({
-                message: 'User not found'
-            })
-        }
-        // Check if the user has already been verified
-        if (user.isVerified) {
-            return res.status(400).json({
-                message: 'User already verified'
-            })
-        }
 
-        const Token = jwt.sign({
-        Email: user.Email 
-       }, process.env.JWT_SECRET, 
-       { expiresIn: '20mins' 
-       });
-       // const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/verify/${Token}`
-        const verifyLink=`http://localhost:2601/api/v1/user/resend-verification/${Token}`
+// exports.resendVerificationEmail = async (req, res) => {
+//     try {
+//         const {Email} = req.body;
+//         // Find the user with the email
+//         const user = await userModel.findOne({Email});
+//         // Check if the user is still in the database
+//         if (!user) {
+//             return res.status(404).json({
+//                 message: 'User not found'
+//             })
+//         }
+//         // Check if the user has already been verified
+//         if (user.isVerified) {
+//             return res.status(400).json({
+//                 message: 'User already verified'
+//             })
+//         }
 
-        let mailOptions = {
-            email: user.Email,
-            subject: 'Verification email',
-            html: this.resendVerificationEmailTemplate(verifyLink, user.fullName),
-        }
-        // Send the the email
-        await sendMail(mailOptions);
-        // Send a success message
-        res.status(200).json({
-            message: 'Verification email resent successfully'
-        })
+//         const Token = jwt.sign({
+//         Email: user.Email 
+//        }, process.env.JWT_SECRET, 
+//        { expiresIn: '20mins' 
+//        });
+//        // const verifyLink = `https://final-project-eldw.onrender.com/api/v1/user/verify/${Token}`
+//         const verifyLink=`http://localhost:2601/api/v1/user/verify/${Token}`
 
-    } catch (err) {
-        res.status(500).json(err.message)
-    }
-}
+//         let mailOptions = {
+//             email: user.Email,
+//             subject: 'Verification email',
+//             html: verifyTemplate(verifyLink, user.fullName),
+//         }
+//         // Send the the email
+//         await sendMail(mailOptions);
+//         // Send a success message
+//         res.status(200).json({
+//             message: 'Verification email resent successfully'
+//         })
+
+//     } catch (err) {
+//         res.status(500).json(err.message)
+//     }
+// }
 
 exports.ForgetPassword = async(req,res) =>{
     try {
@@ -397,3 +398,70 @@ exports.deleteUser = async (req,res)=>{
       res.status(500).json(err.message)
      }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.resendVerificationEmail = async (req, res) => {
+    try {
+      const { Email } = req.body;
+  
+      // Check if email is provided in the request body
+      if (!Email) {
+        return res.status(400).json({ message: 'Email is required' });
+      }
+  
+      // Normalize the email input
+      const normalizedEmail = Email.toLowerCase();
+  
+      // Find the user by the provided email
+      const user = await userModel.findOne({ Email: normalizedEmail });
+  
+      // Check if user exists
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Generate a token
+      const Token = jwt.sign(
+        { id: user._id, Email: user.Email },
+        process.env.JWT_SECRET,
+        { expiresIn: '24h' } 
+      );
+  
+      // Create the verification link
+      const reverifyLink =`http://localhost:2601/api/v1/user/verify/${Token}`
+  
+      // Send the email
+      await sendMail({
+        subject: 'Kindly verify your email',
+        to: user.Email,
+        html: resendVerificationEmailTemplate(reverifyLink, user.fullName)
+      });
+  
+      // Respond with success
+      res.status(200).json({
+        message: 'Verification email sent'
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.message
+      });
+    }
+  };
