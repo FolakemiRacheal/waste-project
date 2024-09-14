@@ -23,13 +23,13 @@ exports.createWaste = async (req, res) => {
     const createWaste = new wasteModel(req.body);
     console.log(user)
     
-    if (!createWaste || createWaste.wasteKg === undefined) {
+    if (!createWaste || createWaste.WasteKG === undefined) {
       return res.status(400).json({
          message: 'Missing required fields' });
     }
     createWaste.Email = user.Email; 
 
-    if (createWaste.wasteKg < 10) {
+    if (createWaste.WasteKG < 10) {
       return res.status(400).json({
          message: 'Waste must be at least 10 kg' });
     }

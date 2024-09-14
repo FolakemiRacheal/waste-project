@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const wasteSchema = new mongoose.Schema({
-    name:{
+    Name:{
         type:String,
         required:true,
        
@@ -16,12 +16,12 @@ const wasteSchema = new mongoose.Schema({
         required:true,
         //unique:true
     },
-    wasteKg:{
+    WasteKG:{
         type:String,
         required:true,
         // unique:true
     },
-    address:{
+    Address:{
         type:String,
         required:true
     },
