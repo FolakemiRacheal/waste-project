@@ -552,9 +552,9 @@ exports.signUp = async(req,res)=>{
         const user = new userModel({
             Name:Name.trim(),
             Email:Email.toLowerCase().trim(),
-            Location,
+            Location:Location.trim(),
             Password:hashedPassword,
-            PhoneNumber
+            PhoneNumber:PhoneNumber.trim()
         })
             const Token = jwt.sign({
                 id:user._id,
