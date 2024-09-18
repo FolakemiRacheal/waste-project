@@ -17,13 +17,18 @@ const wasteSchema = new mongoose.Schema({
         //unique:true
     // },
     WasteKG:{
-        type:String,
+        type:Number,
         required:true,
         // unique:true
     },
    pickUpAddress:{
         type:String,
         required:true
+    },
+    status:{
+        type: String,
+        enum: ["pending","approved","declined"],
+        default:"pending",
     },
     userId:[
         {type:mongoose.Schema.Types.ObjectId,

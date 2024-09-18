@@ -630,10 +630,12 @@ exports.login = async(req,res)=>{
 exports.makeAdmin = async(req, res)=> {
     try {
         const {id} = req.params
+        console.log(id)
         const user = await userModel.findById(id)
         if(!user){
             return res.status(404).json(`User with ID ${id} was not found`)
         }
+      
         user.isAdmin = true
         await user.save()
         res.status(200).json({
@@ -644,6 +646,7 @@ exports.makeAdmin = async(req, res)=> {
     } catch (err) {
         res.status(500).json(err.message)
     }
+    
 }
 
 exports.verifyEmail = async (req, res) => {

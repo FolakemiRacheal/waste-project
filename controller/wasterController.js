@@ -21,7 +21,7 @@ exports.createWaste = async (req, res) => {
     }
     
     const createWaste = new wasteModel(req.body);
-    console.log(user)
+    //console.log(user)
     
     if (!createWaste || createWaste.WasteKG === undefined) {
       return res.status(400).json({
@@ -142,3 +142,58 @@ exports.updateWaste= async(req, res)=>{
     })
     }
   }
+exports.wasteHistory = async(req, res)=>{
+try {
+  const {userId} = req.user
+  const wasteHistory = await wasteModel.find({userId:userId}).sort({createdAt:-1}).populate("userId");
+  if (wasteHistory.length=== 0) {
+    res.status(404).json({
+      message:"list of all waste not found"
+      
+    })
+  }
+console.log(wasteHistory)
+//count the number of pending request 
+const pendingRequest = wasteHistory.filter(waste=>
+  waste.status === "pending"
+
+).length
+console.log("Pending Request: " + pendingRequest)
+
+// //sum up the approved wastekg
+// const totalApprovedWaste = wasteHistory.filter(waste=>
+
+//   // Filter for approved status
+//   waste.status === "approved"
+// ).reduce((acc, waste)=>{
+
+//   // Sum the wasteKG values
+//  acc + (waste.WasteKG || 0), 0
+
+// })
+//console.log("totalApprovedWaste: " + totalApprovedWaste)
+
+
+// Sum all the wasteKG
+const totalWaste = wasteHistory
+.reduce((acc, waste) => acc +(waste.WasteKG || 0), 0); 
+// Sum the wasteKG values
+console.log(" totalWaste: " +  totalWaste)
+
+
+
+  return res.status(200).json({
+    message:"waste history found successfully",
+    data:wasteHistory,
+    pendingRequest:pendingRequest,
+    //totalApprovedWaste: totalApprovedWaste,
+    totalWaste:totalWaste
+
+
+  })
+} catch (error) {
+  return res.status(500).json({
+    message:"internal server error"+ error.message
+  })
+}
+}

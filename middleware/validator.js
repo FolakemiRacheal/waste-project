@@ -85,18 +85,23 @@ const signUpValidator = Joi.object({
       "any.required": "Phone number is required.",
     }),
 
-    Location:  Joi.string()
-    .min(3) // Minimum length of 3 characters
-    .max(100) // Maximum length of 100 characters (adjust as needed)
-    .regex(/^\d{1,5}\s[A-Za-z0-9\s]+,\s[A-Za-z\s]+,\s[A-Za-z\s]+$/).trim() // Remove leading and trailing spaces
-    .required() // Field is required
-    .messages({
-      "string.base": "Location must be a string.",
-      "string.empty": "Location cannot be empty.",
-      "string.min": "Location should have a minimum length of 3 characters.",
-      "string.max": "Location should have a maximum length of 100 characters.",
-      "string.pattern.base": "Location must be in the format: [Street Number] [Street Name], [City], [State] ",
-      "any.required": "Location name is required.",
+    // Location:  Joi.string()
+    // .min(3) // Minimum length of 3 characters
+    // .max(100) // Maximum length of 100 characters (adjust as needed)
+    // .regex(/^\d{1,5}\s[A-Za-z0-9\s]+,\s[A-Za-z\s]+,\s[A-Za-z\s]+$/).trim() // Remove leading and trailing spaces
+    // .required() // Field is required
+    // .messages({
+    //   "string.base": "Location must be a string.",
+    //   "string.empty": "Location cannot be empty.",
+    //   "string.min": "Location should have a minimum length of 3 characters.",
+    //   "string.max": "Location should have a maximum length of 100 characters.",
+    //   "string.pattern.base": "Location must be in the format: [Street Number] [Street Name], [City], [State] ",
+    //   "any.required": "Location name is required.",
+    // }),
+    Location: Joi.string().required().pattern(/^[a-zA-Z0-9-,. ]+$/).messages({
+      'string.pattern.base': 'Location can contain only alphabetic characters, numbers, spaces, commas, periods, or hyphens.',
+      'any.required': 'Location is required.',
+      'string.empty': 'Location cannot be empty.'
     }),
   
 
@@ -126,24 +131,12 @@ const validateSignUp = (req, res, next) => {
 
 const createWasteValidator = async (req, res, next) => {
   const Schema = Joi.object({
-  //  Name: Joi.string().min(3).required().pattern(new RegExp(/^[^\s].+[^\s]$/)).messages({
-  //      "any.required": "Name is required.",
-  //      "string.empty": "Name cannot be empty.",
-  //       "string.min": "Name must be at least 3 characters long.",
-  //       "string.pattern.base": "Name cannot start or end with a whitespace.",
-  //     }),
-
-  //     Email: Joi.string().email().min(7).required().messages({
-  //       "any.required": "please kindly fill your email address",
-  //       "string.empty": "email cannot be empty",
-  //       "string.email":"invalid email format. please enter a valid email address",
-  //     }),
  
-      WasteKG: Joi.number().required().min(1).max(50).messages({
+      WasteKG: Joi.number().required().min(1).max(70).messages({
       "number.base": "WasteKG must be a number",
       "number.empty": "WasteKG cannot be empty",
-      "number.min": "WasteKG must be at least 1 kilogram",
-      "number.max": "WasteKG must not exceed 50 kilograms",
+      "number.min": "WasteKG must be at least 10 kilogram",
+      "number.max": "WasteKG must not exceed 70 kilograms",
       "any.required": "WasteKG is a required field"
     }),
     pickUpAddress: Joi.string().required().pattern(/^[a-zA-Z0-9-,. ]+$/).messages({
@@ -151,11 +144,7 @@ const createWasteValidator = async (req, res, next) => {
       'any.required': 'Address is required.',
       'string.empty': 'Address cannot be empty.'
     }),
-    // PhoneNumber: Joi.string().pattern(/^\d{11}$/).required().messages({
-    //   "any.required": "Phone number is required.",
-    //   "string.empty": "Phone number cannot be empty.",
-    //   "string.pattern.base": "Phone number must be exactly 11 digits."
-    // })
+    
         });
           const { error } = Schema.validate(req.body);
     if (error) {
