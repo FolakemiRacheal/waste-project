@@ -37,7 +37,7 @@ exports.signUp = async(req,res)=>{
                 },process.env.JWT_SECRET || finalProject,
                 {expiresIn:"60 minutes"}
             )
-            const verifyLink =`https://recycle-pay-jyw3.vercel.app/#/SignupConfirmation/:${Token}`
+            const verifyLink =`https://recycle-pay-jyw3.vercel.app/#/SignupConfirmation/${Token}`
 
              await user.save()
             await sendMail({
