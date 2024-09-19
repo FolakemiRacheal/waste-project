@@ -229,7 +229,7 @@ exports.ForgetPassword = async(req,res) =>{
         { expiresIn: '20mins' 
         });
 
-        const resetLink = `https://final-project-wq1b.onrender.com/api/v1/user/reset-password/${ResetToken}`
+        const resetLink = `https://recycle-pay-jyw3.vercel.app/#/ResetPassword/${ResetToken}`
         const mailOptions = {
             email: user.Email,
             subject: 'Reset password',
