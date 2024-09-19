@@ -142,6 +142,9 @@ exports.updateWaste= async(req, res)=>{
     })
     }
   }
+
+
+  
 exports.wasteHistory = async(req, res)=>{
 try {
   const {userId} = req.user
@@ -160,15 +163,7 @@ const pendingRequest = wasteHistory.filter(waste=>
 ).length
 console.log("Pending Request: " + pendingRequest)
 
-// //sum up the approved wastekg
-// const totalApprovedWaste = wasteHistory.filter(waste=>
 
-//   // Filter for approved status
-//   waste.status === "approved"
-// ).reduce((acc, waste)=>{
-
-//   // Sum the wasteKG values
-//  acc + (waste.WasteKG || 0), 0
 
 // })
 //console.log("totalApprovedWaste: " + totalApprovedWaste)

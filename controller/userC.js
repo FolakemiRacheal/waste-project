@@ -560,7 +560,7 @@ exports.signUp = async(req,res)=>{
                 id:user._id,
                 Email:user.Email
                 },process.env.JWT_SECRET || finalProject,
-                {expiresIn:"1 minutes"}
+                {expiresIn:"60 minutes"}
             )
             const verifyLink =`http://localhost:2601/api/v1/user/verify/${Token}`
 
