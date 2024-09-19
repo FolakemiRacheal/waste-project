@@ -64,7 +64,6 @@ const signUpValidator = Joi.object({
 
   Email: Joi.string()
     .email()
-    .pattern(/^[a-zA-Z0-9._%+-]+@gmail\.com$/)
     .trim()
     .required()
     .messages({
@@ -85,19 +84,7 @@ const signUpValidator = Joi.object({
       "any.required": "Phone number is required.",
     }),
 
-    // Location:  Joi.string()
-    // .min(3) // Minimum length of 3 characters
-    // .max(100) // Maximum length of 100 characters (adjust as needed)
-    // .regex(/^\d{1,5}\s[A-Za-z0-9\s]+,\s[A-Za-z\s]+,\s[A-Za-z\s]+$/).trim() // Remove leading and trailing spaces
-    // .required() // Field is required
-    // .messages({
-    //   "string.base": "Location must be a string.",
-    //   "string.empty": "Location cannot be empty.",
-    //   "string.min": "Location should have a minimum length of 3 characters.",
-    //   "string.max": "Location should have a maximum length of 100 characters.",
-    //   "string.pattern.base": "Location must be in the format: [Street Number] [Street Name], [City], [State] ",
-    //   "any.required": "Location name is required.",
-    // }),
+
     Location: Joi.string().required().pattern(/^[a-zA-Z0-9-,. ]+$/).messages({
       'string.pattern.base': 'Location can contain only alphabetic characters, numbers, spaces, commas, periods, or hyphens.',
       'any.required': 'Location is required.',
