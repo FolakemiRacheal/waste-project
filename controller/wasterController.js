@@ -42,7 +42,7 @@ exports.createWaste = async (req, res) => {
     await sendMail({
       subject: 'Waste Recycling Confirmation Email',
       email: createWaste.Email,
-      html: pickUpWasteTemplate(user.fullName)
+      html: pickUpWasteTemplate(user.Name)
     });
     
     
@@ -144,7 +144,7 @@ exports.updateWaste= async(req, res)=>{
   }
 
 
-  
+
 exports.wasteHistory = async(req, res)=>{
 try {
   const {userId} = req.user
