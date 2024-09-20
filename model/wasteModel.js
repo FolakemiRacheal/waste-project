@@ -6,16 +6,12 @@ const wasteSchema = new mongoose.Schema({
     //     required:true,
        
     // },
-    // PhoneNumber:{
-    //     type:String,
-    //     required:true,
-    //     //unique:true
-    // },
-    // Email:{
-    //     type:String,
-    //     required:true,
+    PhoneNumber:{
+        type:String,
+        required:true,
         //unique:true
-    // },
+    },
+    
     WasteKG:{
         type:Number,
         required:true,
