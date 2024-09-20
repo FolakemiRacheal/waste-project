@@ -52,4 +52,5 @@ router.get("/get-all", authenticate, isAdmin, getAllWaste);
 router.delete("/delete-waste", isAdmin, deleteWaste);
 // router.post("/waste", createWaste)
 router.get("/wasteHistory", authenticate, wasteHistory);
+
 module.exports = router;

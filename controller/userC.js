@@ -91,7 +91,7 @@ exports.login = async(req,res)=>{
         const Token = await jwt.sign({
             userId:checkMail._id,
             Email:checkMail.Email,
-        },process.env.JWT_SECRET,{expiresIn:'1h'})
+        },process.env.JWT_SECRET,{expiresIn:'24hrs'})
 
         res.status(200).json({
             message:`Login succssfully`,
