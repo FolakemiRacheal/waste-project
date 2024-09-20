@@ -306,10 +306,10 @@ const pickUpWasteTemplate = (Name) => {
  <p>Pick Up Details</p>
 
             <p>
-            Name: Folake Racheal\n\n
-            Address: 2 Nihinlolawa coker Street Lagos\n\n
-            Phone Number: 07061180774\n\n
-            wasteKg: 20kg\n\n
+            
+            pickUpAddress: ${pickUpAddress}
+            
+            wasteKg: ${wasteKg}
             </p>
             <p>If you did not create an account, please ignore this email.</p>
             <p>Best regards,<br>The Waste Recycling Team</p>
