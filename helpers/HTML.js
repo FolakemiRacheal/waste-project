@@ -239,7 +239,7 @@ const verifyTemplate = (verifyLink,Name) => {
 
 
 
-const pickUpWasteTemplate = (Name) => {
+const pickUpWasteTemplate = (details) => {
     return `
     <!DOCTYPE html>
 <html>
@@ -299,7 +299,7 @@ const pickUpWasteTemplate = (Name) => {
             <h1>RecyclePay Confirmation Info</h1>
         </div>
         <div class="content">
-            <p>Hello ${Name},</p>
+            <p>Hello ${details.Name},</p>
             <p>Waste Recycling Order Confirmation.</p>
             <p>Thank you for placing an order with us. Your request has been confirmed and will be available for pickup in the next three working days.</p>
 
@@ -307,9 +307,9 @@ const pickUpWasteTemplate = (Name) => {
 
             <p>
             
-            pickUpAddress: ${pickUpAddress}
+            pickUpAddress: ${details.pickUpAddress}
             
-            wasteKg: ${wasteKg}
+            wasteKg: ${details.WasteKG}
             </p>
             <p>If you did not create an account, please ignore this email.</p>
             <p>Best regards,<br>The Waste Recycling Team</p>

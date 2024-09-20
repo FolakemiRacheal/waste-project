@@ -7,26 +7,15 @@ require ("dotenv").config()
 
 exports.createWaste = async (req, res) => {
   try {
-    const id = req.params.id;
-    
-    if (!id) {
-      return res.status(400).json({
-         message: 'User is required' });
-    }
-    
+    const id = req.user.userId;
     const user = await userModel.findById(id);
     if (!user) {
       return res.status(404).json({ 
         message: 'User not found' });
     }
-    
+
     const createWaste = new wasteModel(req.body);
-    //console.log(user)
-    
-    if (!createWaste || createWaste.WasteKG === undefined) {
-      return res.status(400).json({
-         message: 'Missing required fields' });
-    }
+    createWaste.Name = user.Name
     createWaste.Email = user.Email; 
 
     if (createWaste.WasteKG < 10) {
@@ -42,10 +31,8 @@ exports.createWaste = async (req, res) => {
     await sendMail({
       subject: 'Waste Recycling Confirmation Email',
       email: createWaste.Email,
-      html: pickUpWasteTemplate(user.Name)
+      html: pickUpWasteTemplate(createWaste)
     });
-    
-    
     res.status(201).json({
       message: 'Waste entry created successfully',
       data: createWaste

@@ -1,17 +1,15 @@
 const mongoose = require("mongoose");
 
-const wasteSchema = new mongoose.Schema(
+const requestSchema = new mongoose.Schema(
   {
-    phoneNumber: {
-      type: String,
-      required: true,
-      //unique:true
-    },
-    WasteKG: {
+    requestKG: {
       type: Number,
       required: true,
-      // unique:true
     },
+    phone: {
+        type: Number,
+        required: true,
+      },
     pickUpAddress: {
       type: String,
       required: true,
@@ -23,10 +21,12 @@ const wasteSchema = new mongoose.Schema(
     },
     userId: [
       { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
-    ]
+    ],
+
+    //blackList:[]
   },
   { timestamps: true }
 );
 
-const wasteModel = mongoose.model("waste", wasteSchema);
-module.exports = wasteModel;
+const requestModel = mongoose.model("request", requestSchema);
+module.exports = requestModel;

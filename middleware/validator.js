@@ -126,12 +126,16 @@ const createWasteValidator = async (req, res, next) => {
       "number.max": "WasteKG must not exceed 70 kilograms",
       "any.required": "WasteKG is a required field"
     }),
-    pickUpAddress: Joi.string().required().pattern(/^[a-zA-Z0-9-,. ]+$/).messages({
+    pickUpAddress: Joi.string().required().messages({
       'string.pattern.base': 'Address can contain only alphabetic characters, numbers, spaces, commas, periods, or hyphens.',
       'any.required': 'Address is required.',
       'string.empty': 'Address cannot be empty.'
     }),
-    
+    phoneNumber: Joi.string().required().messages({
+      'string.pattern.base': 'Phone can contain only alphabetic characters, numbers, spaces, commas, periods, or hyphens.',
+      'any.required': 'Phone is required.',
+      'string.empty': 'Phone cannot be empty.'
+    }),
         });
           const { error } = Schema.validate(req.body);
     if (error) {
