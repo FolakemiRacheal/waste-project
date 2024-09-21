@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
-const userModel = require('../model/userM');
-
+const userModel = require('../model/user');
 
 // To authenticate if a user is signed in
 
@@ -63,5 +62,5 @@ const isAdmin = async (req, res, next) => {
   
   module.exports = {
     authenticate,
-    isAdmin,
+    isAdmin
   };

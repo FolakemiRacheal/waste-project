@@ -1,5 +1,5 @@
 const express = require("express");
-const router = require("./router/userR");
+const router = require("./router/user");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();

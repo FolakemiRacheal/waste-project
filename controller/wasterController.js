@@ -1,7 +1,7 @@
 const { pickUpWasteTemplate } = require("../helpers/HTML");
-const userModel = require("../model/userM");
+const userModel = require("../model/user");
 const { sendMail } = require("../helpers/sendMail");
-const wasteModel = require("../model/wasteModel");
+const wasteModel = require("../model/wasteRequest");
 require("dotenv").config();
 
 exports.createWaste = async (req, res) => {
@@ -13,6 +13,8 @@ exports.createWaste = async (req, res) => {
         message: "User not found",
       });
     }
+
+    const oldRequest = await wasteModel.findAll({ userId: id });
 
     const createWaste = new wasteModel(req.body);
     createWaste.Name = user.Name;
@@ -36,7 +38,10 @@ exports.createWaste = async (req, res) => {
     });
     res.status(201).json({
       message: "Waste entry created successfully",
-      data: createWaste,
+      data: {
+        createWaste,
+        oldRequest
+      }
     });
   } catch (error) {
     res.status(500).json({
@@ -47,7 +52,7 @@ exports.createWaste = async (req, res) => {
 
 exports.getAllWaste = async (req, res) => {
   try {
-    const getAllWaste = await userModel.find();
+    const getAllWaste = await wasteModel.find();
     if (getAllWaste.length === 0) {
       res.status(200).json({
         message: "list of all to do in the database",
@@ -77,8 +82,18 @@ exports.getAll = async (req, res) => {
   }
 };
 
-//DELETE
+exports.getAll = async(req,res)=>{
+  try {
+      const all = await wasteModel.find()
+      res.status(200).json({
+          message:`kindly find below all ${all.length}`,
+          data:all})
+  } catch (err) {
+      res.status(500).json(err.message)
+  }
+}
 
+//DELETE
 exports.deleteWaste = async (req, res) => {
   try {
     const Id = req.params.id;
@@ -133,15 +148,11 @@ exports.wasteHistory = async (req, res) => {
       .sort({ createdAt: -1 })
       .populate("userId");
 
-    console.log(wasteHistory);
     //count the number of pending request
     const pendingRequest = wasteHistory.filter(
       (waste) => waste.status === "pending"
     ).length;
     console.log("Pending Request: " + pendingRequest);
-
-    // })
-    //console.log("totalApprovedWaste: " + totalApprovedWaste)
 
     // Sum all the wasteKG
     const totalWaste = wasteHistory.reduce(
@@ -157,6 +168,35 @@ exports.wasteHistory = async (req, res) => {
       pendingRequest: pendingRequest,
       //totalApprovedWaste: totalApprovedWaste,
       totalWaste: totalWaste,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "internal server error" + error.message,
+    });
+  }
+};
+
+exports.pickWaste = async (req, res) => {
+  try {
+    const { wasteId } = req.params;
+    const wasteRequest = await wasteModel.findById(wasteId);
+    if (!wasteRequest) {
+      return res.status(404).json({
+        message: `Waste request with id: ${wasteId} does not exist`,
+      });
+    }
+
+    if (wasteRequest.status == "approved") {
+      return res.status(403).json({
+        message: `Waste request with id: ${wasteId} is already approved`,
+      });
+    }
+
+    wasteRequest.status = "approved";
+    await wasteRequest.save();
+    return res.status(200).json({
+      message: "Waste pick successfully",
+      data: wasteRequest
     });
   } catch (error) {
     return res.status(500).json({
