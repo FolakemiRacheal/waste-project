@@ -14,7 +14,7 @@ exports.createWaste = async (req, res) => {
       });
     }
 
-    const oldRequest = await wasteModel.findAll({ userId: id });
+    const oldRequest = await wasteModel.find({ userId: id });
 
     const createWaste = new wasteModel(req.body);
     createWaste.Name = user.Name;
@@ -25,6 +25,7 @@ exports.createWaste = async (req, res) => {
         message: "Waste must be at least 10 kg",
       });
     }
+  
     createWaste.userId.push(id);
     await createWaste.save();
 
