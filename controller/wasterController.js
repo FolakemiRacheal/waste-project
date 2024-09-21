@@ -51,10 +51,13 @@ exports.getAllWaste = async (req, res) => {
     const getAllWaste = await wasteModel.find();
     if (getAllWaste.length === 0) {
      return res.status(200).json({
-        message: "list of all to do in the database",
-        data: getAllWaste,
+        message: "Database currently empty"
       });
     }
+    res.status(200).json({
+      message: "list of all to do in the database",
+      data: getAllWaste,
+    });
   } catch (error) {
    return res.status(500).json({
       message: "internal server error" + error.message,
