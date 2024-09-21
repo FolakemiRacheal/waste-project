@@ -22,6 +22,7 @@ const {
   deleteWaste,
   wasteHistory,
   pickWaste,
+  getUserWasteRecords,
 } = require("../controller/wasterController");
 const { authenticate, isAdmin } = require("../middleware/auth.copy");
 const {
@@ -48,6 +49,7 @@ router.delete("/deleteUser/:userId", isAdmin, deleteUser);
 
 router.post("/create-waste", authenticate, createWasteValidator, createWaste);
 router.post("/update-waste", authenticate, updateWaste);
+router.get("/waste-records", authenticate, getUserWasteRecords);
 router.get("/get-all", authenticate, isAdmin, getAllWaste);
 //router.get('/get-one',authenticate,getOne)
 router.delete("/delete-waste", isAdmin, deleteWaste);

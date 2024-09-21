@@ -80,6 +80,7 @@ exports.login = async (req, res) => {
         message: `User with email not found`,
       });
     }
+
     const confirmPassword = await bcryptjs.compare(
       Password,
       checkMail.Password

@@ -14,7 +14,7 @@ exports.createWaste = async (req, res) => {
       });
     }
 
-    const oldRequest = await wasteModel.find({ userId: id });
+    //const oldRequest = await wasteModel.find({ userId: id });
 
     const createWaste = new wasteModel(req.body);
     createWaste.Name = user.Name;
@@ -44,7 +44,7 @@ exports.createWaste = async (req, res) => {
     await createWaste.save();
     res.status(201).json({
       message: "Waste entry created successfully",
-      data: createWaste, oldRequest
+      data: createWaste
     });
   } catch (error) {
     res.status(500).json({
@@ -69,22 +69,58 @@ exports.getAllWaste = async (req, res) => {
   }
 };
 
-exports.getAll = async (req, res) => {
-  try {
-    const contents = await userModel.find().populate("user").exec();
+// exports.getUserWasteRecords = async (req, res) => {
+//   try {
+//     const id = req.user.userId;
+//     const wasteRecords = await wasteModel.find({ userId: id});
 
+//     res.status(200).json({
+//       message: "Retrieved waste records successfully",
+//       data: wasteRecords,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       message: error.message,
+//     });
+//   }
+// };
+
+exports.getUserWasteRecords = async (req, res) => {
+  try {
+    // Retrieve the user ID from the request (assuming user is authenticated)
+    const userId = req.user.userId;
+
+    // Validate that the user ID is present
+    if (!userId) {
+      return res.status(400).json({
+        message: "User ID is missing",
+      });
+    }
+
+    // Fetch all waste records for the given user ID
+    const wasteRecords = await wasteModel.find({ userId });
+
+    // Check if any records were found
+    if (wasteRecords.length === 0) {
+      return res.status(404).json({
+        message: "No waste records found for this user",
+      });
+    }
+
+    // Respond with the retrieved waste records
     res.status(200).json({
-      message: "Contents retrieved successfully",
-      totalNumberOfContents: contents.length,
-      data: contents,
+      message: "Retrieved waste records successfully",
+      data: wasteRecords,
     });
   } catch (error) {
+    // Log the error for debugging purposes
+    console.error(error);
     res.status(500).json({
-      message: error.message,
+      message: "An error occurred while retrieving waste records",
+      error: error.message,
     });
   }
 };
-
 
 
 //DELETE
