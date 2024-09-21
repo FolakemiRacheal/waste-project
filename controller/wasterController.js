@@ -37,12 +37,14 @@ exports.createWaste = async (req, res) => {
       email: createWaste.Email,
       html: pickUpWasteTemplate(createWaste),
     });
+
+    createWaste.userId = [id];
+    const currentNigerianTime = new Date(new Date().getTime() + (1 * 60 * 60 * 1000));
+    createWaste.createdAt = currentNigerianTime;
+    await createWaste.save();
     res.status(201).json({
       message: "Waste entry created successfully",
-      data: {
-        createWaste,
-        oldRequest
-      }
+      data: createWaste, oldRequest
     });
   } catch (error) {
     res.status(500).json({
@@ -83,22 +85,13 @@ exports.getAll = async (req, res) => {
   }
 };
 
-exports.getAll = async(req,res)=>{
-  try {
-      const all = await wasteModel.find()
-      res.status(200).json({
-          message:`kindly find below all ${all.length}`,
-          data:all})
-  } catch (err) {
-      res.status(500).json(err.message)
-  }
-}
+
 
 //DELETE
 exports.deleteWaste = async (req, res) => {
   try {
     const Id = req.params.id;
-    const deleteWaste = await userModel.findByIdAndDelete(Id);
+    const deleteWaste = await wasteModel.findByIdAndDelete(Id);
     if (!deleteWaste) {
       res.status(404).json({
         message: `Waste  with ID: ${Id} not found`,
@@ -120,7 +113,7 @@ exports.deleteWaste = async (req, res) => {
 exports.updateWaste = async (req, res) => {
   try {
     const Id = req.params.id;
-    const updateWaste = await userModel.findByIdAndUpdate(Id, req.body, {
+    const updateWaste = await wasteModel.findByIdAndUpdate(Id, req.body, {
       new: true,
     });
     if (!updateWaste) {
