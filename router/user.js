@@ -11,8 +11,8 @@ const {
   updateUser,
   deleteUser,
   oneUser,
-  getAll,
   logOut,
+  getAllUser,
 } = require("../controller/userC");
 const {
   createWaste,
@@ -23,6 +23,8 @@ const {
   wasteHistory,
   pickWaste,
   getUserWasteRecords,
+  getSingleWasteRecord,
+  getUserWasteRecordsByAdmin,
 } = require("../controller/wasterController");
 const { authenticate, isAdmin } = require("../middleware/auth.copy");
 const {
@@ -33,6 +35,7 @@ const {
 
 const router = express.Router();
 
+//USER ROUTE
 router.post("/signUp", validateSignUp, signUp);
 router.post("/sign-in", validateLogin, login);
 router.get("/verify/:token", verifyEmail);
@@ -40,19 +43,23 @@ router.post("/resend-verification", resendVerificationEmail);
 router.post("/forgot-password", ForgetPassword);
 router.post("/change-password/:token", changePassword);
 router.post("/reset-password/:token", ResetPassword);
-router.put("/make-admin/:id", isAdmin, makeAdmin);
 router.put("/update/:userId", updateUser);
 router.get("/oneUser/:id", oneUser);
-router.get("/getall", getAll);
 router.post("/log-out", logOut);
-router.delete("/deleteUser/:userId", authenticate, isAdmin, deleteUser);
-
-router.post("/create-waste", authenticate, createWasteValidator, createWaste);
+router.get("/waste-records", authenticate, getUserWasteRecords); //1
 router.post("/update-waste", authenticate, updateWaste);
-router.get("/waste-records", authenticate, getUserWasteRecords);
-router.get("/get-all", authenticate, isAdmin, getAllWaste);
+router.post("/create-waste", authenticate, createWasteValidator, createWaste);
+router.get("/wasteHistory", authenticate, wasteHistory); //admin and user have access to this route
+router.get("/waste-record/:wasteId", authenticate, getSingleWasteRecord); //admin and user have access to this route //2
+
+//ADMIN ROUTES
+router.get("/get-all", authenticate, isAdmin, getAllWaste); //4
 router.delete("/delete-waste/:id", authenticate, isAdmin, deleteWaste);
-router.get("/wasteHistory", authenticate, wasteHistory);
 router.get('/pick-waste/:wasteId', authenticate, isAdmin, pickWaste);
+router.delete("/deleteUser/:userId", authenticate, isAdmin, deleteUser);
+router.get("/getall", authenticate, isAdmin, getAllUser);
+router.get("/get-all-user-waste/:userId", authenticate, isAdmin, getUserWasteRecordsByAdmin); //3
+router.put("/make-admin/:id", isAdmin, makeAdmin);
+
 
 module.exports = router;

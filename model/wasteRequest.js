@@ -21,12 +21,16 @@ const wasteSchema = new mongoose.Schema(
       enum: ["pending", "approved", "declined"],
       default: "pending",
     },
-    userId: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
-    ]
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+      required: true,
+    },
   },
+
   { timestamps: true }
 );
 
-const wasteModel = mongoose.model("waste", wasteSchema);
+const wasteModel = mongoose.model("wastes", wasteSchema);
+
 module.exports = wasteModel;

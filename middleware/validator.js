@@ -118,7 +118,6 @@ const validateSignUp = (req, res, next) => {
 
 const createWasteValidator = async (req, res, next) => {
   const Schema = Joi.object({
- 
       WasteKG: Joi.number().required().min(1).max(70).messages({
       "number.base": "WasteKG must be a number",
       "number.empty": "WasteKG cannot be empty",

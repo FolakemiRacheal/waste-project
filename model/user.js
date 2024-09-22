@@ -33,14 +33,16 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    wasteDetail: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "waste",
-    },
+    // wasteDetail: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //   ref: "wastes",
+    //   },
+    // ],
     blackList: [],
   },
   { timestamps: true }
 );
 
-const userModel = mongoose.model("user", userSchema);
+const userModel = mongoose.model("users", userSchema);
 module.exports = userModel;

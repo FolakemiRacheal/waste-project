@@ -370,7 +370,7 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-exports.getAll = async (req, res) => {
+exports.getAllUser = async (req, res) => {
   try {
     const all = await userModel.find();
     res.status(200).json({
