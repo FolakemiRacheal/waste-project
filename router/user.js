@@ -46,11 +46,11 @@ router.post("/reset-password/:token", ResetPassword);
 router.put("/update/:userId", updateUser);
 router.get("/oneUser/:id", oneUser);
 router.post("/log-out", logOut);
-router.get("/waste-records", authenticate, getUserWasteRecords); //1
+router.get("/waste-records", authenticate, getUserWasteRecords);
 router.post("/update-waste", authenticate, updateWaste);
 router.post("/create-waste", authenticate, createWasteValidator, createWaste);
 router.get("/wasteHistory", authenticate, wasteHistory); //admin and user have access to this route
-router.get("/waste-record/:wasteId", authenticate, getSingleWasteRecord); //admin and user have access to this route //2
+router.get("/waste-record/:wasteId", authenticate, getSingleWasteRecord); //admin and user have access to this route
 
 //ADMIN ROUTES
 router.get("/get-all", authenticate, isAdmin, getAllWaste); //4
