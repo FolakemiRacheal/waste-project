@@ -53,6 +53,7 @@ exports.createWaste = async (req, res) => {
   }
 };
 
+//to get all waste by the admin
 exports.getAllWaste = async (req, res) => {
   try {
     const getAllWaste = await wasteModel.find();
@@ -67,6 +68,7 @@ exports.getAllWaste = async (req, res) => {
   }
 };
 
+//to get all user waste by the user himself
 exports.getUserWasteRecords = async (req, res) => {
   try {
     const id = req.user.userId;
@@ -83,6 +85,7 @@ exports.getUserWasteRecords = async (req, res) => {
   }
 };
 
+// to get a waste by a user
 exports.getSingleWasteRecord = async (req, res) => {
   try {
     const { wasteId } = req.params;
@@ -99,6 +102,8 @@ exports.getSingleWasteRecord = async (req, res) => {
   }
 };
 
+
+//to get a user waste by the admin
 exports.getUserWasteRecordsByAdmin = async (req, res) => {
   try {
     const { userId } = req.params;
