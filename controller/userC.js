@@ -241,7 +241,7 @@ exports.ForgetPassword = async (req, res) => {
       { expiresIn: "20mins" }
     );
 
-    const resetLink = `https://recycle-pay-jyw3.vercel.app/#/ResetPassword/${ResetToken}`;
+    const resetLink = `https://recyclepay.vercel.app/#/ResetPassword/${ResetToken}`;
     const mailOptions = {
       email: user.Email,
       subject: "Reset password",
