@@ -96,11 +96,14 @@ const signUpValidator = Joi.object({
   
 
 
-  Password: Joi.string().trim().min(6).required().messages({
-    "string.min": "Password must be at least 6 characters long.",
-    "string.empty": "Password cannot be empty.",
-    "any.required": "Password is required.",
-  }),
+    Password: Joi.string().pattern(new RegExp("^(?=.[!@#$%^&])(?=.*[A-Z]).{7,}$"))
+    .required()
+    .messages({
+        "any.required": "Please provide a password.",
+        "string.empty": "Password cannot be left empty.",
+        "string.pattern.base":
+            "Password must be at least 7 characters long and include at least one uppercase letter and one special character (!@#$%^&*).",
+            }),
  
 });
 
