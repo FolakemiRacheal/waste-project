@@ -323,7 +323,7 @@ const pickUpWasteTemplate = (details) => {
 </html>
     `
 }
-const pickUpWastePendingTemplate = (Name, Address, PhoneNumber, WasteKG) => {
+const pickUpWastePendingTemplate = (details) => {
     return `
 <!DOCTYPE html>
 <html>
@@ -382,15 +382,17 @@ const pickUpWastePendingTemplate = (Name, Address, PhoneNumber, WasteKG) => {
             <h1>RecyclePay Order Pending</h1>
         </div>
         <div class="content">
-            <p>Hello ${Name},</p>
+            <p>Hello ${details.Name},</p>
             <p>We have received your waste pickup order. Your request is currently <strong>pending</strong> and will be processed soon.</p>
             
-            <p><strong>Pending Order Details:</strong></p>
-            <div class="details">
-                <p><strong>Name:</strong> ${Name}</p>
-                <p><strong>Address:</strong> ${Address}</p>
-                <p><strong>Phone Number:</strong> ${PhoneNumber}</p>
-                <p><strong>Waste (Kg):</strong> ${WasteKG}</p>
+            <p>Pending Order Details</p>
+            <p>
+            PhoneNumber:${details.PhoneNumber}
+            <br>
+            pickUpAddress: ${details.Address}
+            <br>
+            wasteKg: ${details.WasteKG}
+            </p>
             </div>
 
             <p>You will receive another notification once your order is confirmed and ready for pickup. If you have any questions in the meantime, feel free to contact our support team.</p>
@@ -407,7 +409,7 @@ const pickUpWastePendingTemplate = (Name, Address, PhoneNumber, WasteKG) => {
     `;
 };
 
-const pickUpWasteDeclinedTemplate = (Name, Address, PhoneNumber, WasteKG) => {
+const pickUpWasteDeclinedTemplate = (details) => {
     return `
 <!DOCTYPE html>
 <html>
@@ -466,15 +468,17 @@ const pickUpWasteDeclinedTemplate = (Name, Address, PhoneNumber, WasteKG) => {
             <h1>RecyclePay Order Declined</h1>
         </div>
         <div class="content">
-            <p>Hello ${Name},</p>
+            <p>Hello ${details.Name},</p>
             <p>We regret to inform you that your waste pickup order has been <strong>declined</strong>.</p>
             
-            <p><strong>Declined Order Details:</strong></p>
-            <div class="details">
-                <p>Name:${Name}</p>
-                <p>Address:${Address}</p>
-                <p>Phone Number:${PhoneNumber}</p>
-                <p>Waste (Kg):${WasteKG}</p>
+            <p>Decliened Order Details</p>
+            <p>
+            PhoneNumber:${details.PhoneNumber}
+            <br>
+            pickUpAddress: ${details.Address}
+            <br>
+            wasteKg: ${details.WasteKG}
+            </p>
             </div>
 
             <p>If you believe this is a mistake or would like more information, please contact our support team to assist you.</p>
