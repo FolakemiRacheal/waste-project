@@ -1,4 +1,4 @@
-const { pickUpWasteTemplate,pickUpWastePendingTemplate } = require("../helpers/HTML");
+const { pickUpWastePendingTemplate } = require("../helpers/HTML");
 const userModel = require("../model/user");
 const { sendMail } = require("../helpers/sendMail");
 const wasteModel = require("../model/wasteRequest");
@@ -209,6 +209,12 @@ exports.wasteHistory = async (req, res) => {
 exports.pickWaste = async (req, res) => {
   try {
     const { wasteId } = req.params;
+    const {action} = req.body
+    if(!action === "approved" || !action === "declined"){
+      return res.status(400).json({
+        message:"Invalid request data"
+      })
+    }
     const wasteRequest = await wasteModel.findById(wasteId);
     if (!wasteRequest) {
       return res.status(404).json({
@@ -216,16 +222,18 @@ exports.pickWaste = async (req, res) => {
       });
     }
 
-    if (wasteRequest.status == "approved") {
+    if (action === "declined") {
+      wasteRequest.status = "declined";
+      await wasteRequest.save()
       return res.status(403).json({
-        message: `Waste request with id: ${wasteId} is already approved`,
+        message: `Waste request with id: ${wasteId} was declined`,
       });
     }
 
     wasteRequest.status = "approved";
     await wasteRequest.save();
     return res.status(200).json({
-      message: "Waste pick successfully",
+      message: `Waste request with id: ${wasteId} has been approved`,
       data: wasteRequest,
     });
   } catch (error) {
