@@ -55,7 +55,7 @@ router.get("/waste-record/:wasteId", authenticate, getSingleWasteRecord); //admi
 //ADMIN ROUTES
 router.get("/get-all", authenticate, isAdmin, getAllWaste); //4
 router.delete("/delete-waste/:id", authenticate, isAdmin, deleteWaste);
-router.get('/pick-waste/:wasteId', authenticate, isAdmin, pickWaste);
+router.put('/pick-waste/:wasteId', authenticate, isAdmin, pickWaste);
 router.delete("/deleteUser/:userId", authenticate, isAdmin, deleteUser);
 router.get("/getall", authenticate, isAdmin, getAllUser);
 router.get("/get-all-user-waste/:userId", authenticate, isAdmin, getUserWasteRecordsByAdmin); //3

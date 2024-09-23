@@ -227,7 +227,7 @@ exports.pickWaste = async (req, res) => {
     }
 
     if(action === "approved"){
-      wasteRequest.status = "declined";  
+      wasteRequest.status = "approved";  
       await wasteRequest.save();
       return res.status(200).json({
         message: `Waste request with id: ${wasteId} has been approved`,
