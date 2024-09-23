@@ -210,11 +210,7 @@ exports.pickWaste = async (req, res) => {
   try {
     const { wasteId } = req.params;
     const {action} = req.body
-    if(!action === "approved" || !action === "declined"){
-      return res.status(400).json({
-        message:"Invalid request data"
-      })
-    }
+
     const wasteRequest = await wasteModel.findById(wasteId);
     if (!wasteRequest) {
       return res.status(404).json({
@@ -230,12 +226,19 @@ exports.pickWaste = async (req, res) => {
       });
     }
 
-    wasteRequest.status = "approved";
-    await wasteRequest.save();
-    return res.status(200).json({
-      message: `Waste request with id: ${wasteId} has been approved`,
-      data: wasteRequest,
-    });
+    if(action === "approved"){
+      wasteRequest.status = "declined";  
+      await wasteRequest.save();
+      return res.status(200).json({
+        message: `Waste request with id: ${wasteId} has been approved`,
+        data: wasteRequest,
+      });
+  }
+
+  res.status(400).json({
+    message:"Invalid request data"
+  })
+
   } catch (error) {
     return res.status(500).json({
       message: "internal server error" + error.message,
