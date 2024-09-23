@@ -29,4 +29,31 @@ let mailOptions = {
 
 }
 
-module.exports={sendMail}
+const feedBackMail = async (options)=>{
+
+const transporter = await nodeMailer.createTransport(
+    {    
+     secure: true,
+      service :  process.env.SERVICE,
+     
+ auth: {
+         user:process.env.MAIL_ID ,
+          pass:process.env.MAIL_PASSWORD ,
+        },
+      }
+    
+)
+
+let mailOptions = {
+    from: options.email,
+    to: process.env.MAIL_ID,
+    subject: options.subject,
+    text: options.text
+  // html:options.html
+//   
+}
+  await transporter.sendMail(mailOptions)
+
+}
+
+module.exports={sendMail,feedBackMail}

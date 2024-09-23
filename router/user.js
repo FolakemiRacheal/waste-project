@@ -13,6 +13,7 @@ const {
   oneUser,
   logOut,
   getAllUser,
+  feedBack,
 } = require("../controller/userC");
 const {
   createWaste,
@@ -60,6 +61,7 @@ router.delete("/deleteUser/:userId", authenticate, isAdmin, deleteUser);
 router.get("/getall", authenticate, isAdmin, getAllUser);
 router.get("/get-all-user-waste/:userId", authenticate, isAdmin, getUserWasteRecordsByAdmin); //3
 router.put("/make-admin/:id", isAdmin, makeAdmin);
+router.post("/feed_back", feedBack);
 
 
 module.exports = router;

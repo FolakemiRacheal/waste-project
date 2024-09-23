@@ -245,3 +245,5 @@ exports.pickWaste = async (req, res) => {
     });
   }
 };
+
+

@@ -1,7 +1,7 @@
 const userModel = require("../model/user");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { sendMail } = require("../helpers/sendMail");
+const { sendMail, feedBackMail } = require("../helpers/sendMail");
 const {
   signUpTemplate,
   verifyTemplate,
@@ -447,3 +447,28 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json(err.message);
   }
 };
+
+exports.feedBack = async(req,res)=>{
+  try {
+
+    // get the sender's email and message
+    const {email,message} = req.body
+    // console.log(message)
+
+    //  send the message to the admin's mail
+    await feedBackMail({
+      from: email,
+      subject: `FEED BACK`,
+      text: message
+    });
+
+    res.status(200).json({
+      message: `reply sent successfull`,
+    });
+    
+  } catch (error) {
+    return res.status(500).json({
+      message: "internal server error" + error.message,
+    });
+  }
+}

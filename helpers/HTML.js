@@ -78,14 +78,14 @@ const signUpTemplate=(verifyLink,Name)=>{
     
     `
 }
-
-const forgotPasswordTemplate = (verifyLink, Name) => {
+const forgotPasswordTemplate = (resetLink, Name) => {
     return `
     <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to [Your App Name]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset Request</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -105,7 +105,7 @@ const forgotPasswordTemplate = (verifyLink, Name) => {
             background-color: #f4f4f4; /* Light grey background */
         }
         .header {
-            background: #333333;
+            background: #ff6600; /* Orange header */
             padding: 10px;
             text-align: center;
             border-bottom: 1px solid #ddd;
@@ -116,47 +116,52 @@ const forgotPasswordTemplate = (verifyLink, Name) => {
             color: #333333;
         }
         .footer {
-            background: #333333;
+            background: #ff6600; /* Orange footer */
             padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
             font-size: 0.9em;
-            color: #cccccc;
+            color: #ffffff;
         }
         .button {
             display: inline-block;
-            background-color: #000000;
+            background-color: #ff6600; /* Orange button */
             color: #ffffff;
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 5px;
+            margin-top: 20px;
+
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Verification Email</h1>
+            <h1>Password Reset Request</h1>
         </div>
         <div class="content">
             <p>Hello ${Name},</p>
-            <p>Your verification email.</p>
-            <p>Please click the button below to verify your account:</p>
+            <p>We received a request to reset your password. If you made this request, click the button below to set a new password:</p>
             <p>
-                <a href="${verifyLink}" class="button">Verify My Account</a>
+                <a href="${resetLink}" class="button">Reset My Password</a>
             </p>
-            <p>If you did not create an account, please ignore this email.</p>
-            <p>Best regards,<br> THE RECYCLEPAY Team</p>
+            <p>If you did not request a password reset, please ignore this email. Your password will remain unchanged.</p>
+            <p>Best regards,<br> THE RecyclePay Team</p>
         </div>
         <div class="footer">
             <p>&copy; ${new Date().getFullYear()} . All rights reserved.</p>
-            
         </div>
     </div>
 </body>
 </html>
+
+
     `
 }
+
+
+
 
 const verifyTemplate = (verifyLink,Name) => {
     return `
