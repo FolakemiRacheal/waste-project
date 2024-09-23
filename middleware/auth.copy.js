@@ -9,7 +9,7 @@ const authenticate = async (req, res, next) => {
 
         if (!hasAuthorization) {
             return res.status(401).json({ 
-                message: 'Action requires sign-in. Please log in to continue.'
+                message: 'Authorization not found.'
             });
         }
 
@@ -17,7 +17,7 @@ const authenticate = async (req, res, next) => {
 
         if (!token) {
             return res.status(401).json({
-                message: 'Action requires sign-in. Please log in to continue.'
+                message: 'Authentication error: token not found.'
             });
         }
 
