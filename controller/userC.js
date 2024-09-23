@@ -203,7 +203,8 @@ exports.resendVerificationEmail = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "20mins" }
     );
-    const verifyLink = `http://localhost:2601/api/v1/user/verify/${Token}`;
+    //const verifyLink = `http://localhost:2601/api/v1/user/verify/${Token}`;
+    const verifyLink = `https://recycle-pay-jyw3.vercel.app/#/verify/${Token}`;
 
     let mailOptions = {
       email: user.Email,
