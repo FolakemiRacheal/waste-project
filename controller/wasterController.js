@@ -1,4 +1,4 @@
-const { pickUpWasteTemplate } = require("../helpers/HTML");
+const { pickUpWasteTemplate,pickUpWastePendingTemplate } = require("../helpers/HTML");
 const userModel = require("../model/user");
 const { sendMail } = require("../helpers/sendMail");
 const wasteModel = require("../model/wasteRequest");
@@ -39,7 +39,7 @@ exports.createWaste = async (req, res) => {
     await sendMail({
       subject: "Waste Recycling Confirmation Email",
       email: createWaste.Email,
-      html: pickUpWasteTemplate(createWaste),
+      html: pickUpWastePendingTemplate(createWaste),
     });
 
     return res.status(201).json({

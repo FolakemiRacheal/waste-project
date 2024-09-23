@@ -48,7 +48,7 @@ const authenticate = async (req, res, next) => {
 
 const isAdmin = async (req, res, next) => {
     try {
-      if (req.user.isAdmin) {
+      if (req.user && req.user.isAdmin) {
         next();
       } else {
         res.status(403).json({ message: "Unauthorized: Not an admin" });
