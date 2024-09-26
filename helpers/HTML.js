@@ -399,7 +399,8 @@ const pickUpWastePendingTemplate = (details) => {
             </p>
             </div>
 
-            <p>You will receive another notification once your order is confirmed and ready for pickup. If you have any questions in the meantime, feel free to contact our support team.</p>
+             <p>Thank you for placing an order with us. Your request has been confirmed and will be available for pickup in the next three working days.<br>  <strong>From 9am to 6pm </strong></p>
+             
 
             <p>If you did not place this order, please disregard this email.</p>
             <p>Best regards,<br>The RecyclePay Team</p>
