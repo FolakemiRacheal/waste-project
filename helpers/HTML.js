@@ -393,11 +393,9 @@ const pickUpWastePendingTemplate = (details) => {
             
             <p>Pending Order Details</p>
             <p>
-            PhoneNumber:${details.PhoneNumber}
-            <br>
-            pickUpAddress: ${details.Address}
-            <br>
-            wasteKg: ${details.WasteKG}
+          <strong>PhoneNumber:</strong> ${details.phoneNumber}<br>
+          <strong>pickUpAddress:</strong> ${details.pickUpAddress}<br>
+          <strong>wasteKg:</strong> ${details.WasteKG}
             </p>
             </div>
 
