@@ -54,6 +54,10 @@ let mailOptions = {
 }
   await transporter.sendMail(mailOptions)
 
+
+
+
+
 }
 
 module.exports={sendMail,feedBackMail}
